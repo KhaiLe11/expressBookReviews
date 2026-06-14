@@ -1,0 +1,2 @@
+curl -b review.txt --request PUT 'http://localhost:5000/customer/auth/review/1?review=SPECTACULAR'
+{"message":"The review for the book with ISBN 1 has been successfully added/updated."}
