@@ -1,0 +1,8 @@
+curl http://localhost:5000/author/Samuel%20Beckett
+[
+    {
+        "author": "Samuel Beckett",
+        "title": "Molloy, Malone Dies, The Unnamable, the trilogy",
+        "reviews": {}
+    }
+]
