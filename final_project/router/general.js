@@ -69,14 +69,25 @@ public_users.get('/author/:author',function (req, res) {
 // Get all books based on title
 public_users.get('/title/:title',function (req, res) {
     const title = req.params.title;
-        let book = [];
-        Object.keys(books).forEach(i => {
-            if(books[i].title.toLowerCase() == title.toLowerCase()){
-                book.push(books[i])
-            }
-        });
-        res.send(book)
+
+    let myPromise = new Promise((resolve, reject) => {
+      let keys = Object.keys(books);
+      let matchingBooks = [];
+  
+      for (let i = 0; i < keys.length; i++) {
+        if (books[keys[i]].title === title) {
+          matchingBooks.push(books[keys[i]]);
+        }
+      }
+      resolve(matchingBooks);
+    });
+  
+    myPromise.then((successMessage) => {
+      res.send(JSON.stringify(successMessage, null, 4));
+    });
 });
+
+
 
 //  Get book review
 public_users.get('/review/:isbn',function (req, res) {
