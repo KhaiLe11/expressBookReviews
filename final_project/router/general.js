@@ -54,16 +54,22 @@ public_users.get('/isbn/:isbn',function (req, res) {
 // Get book details based on author
 public_users.get('/author/:author',function (req, res) {
     const author = req.params.author;
-    const keys = Object.keys(books);
-    const matchedBooks = [];
-  
-    for (let i = 0; i < keys.length; i++) {
-      if (books[keys[i]].author === author) {
-        matchedBooks.push(books[keys[i]]);
+
+    let myPromise = new Promise((resolve, reject) => {
+      const keys = Object.keys(books);
+      const matchedBooks = [];
+    
+      for (let i = 0; i < keys.length; i++) {
+        if (books[keys[i]].author === author) {
+          matchedBooks.push(books[keys[i]]);
+        }
       }
-    }
+      resolve(matchedBooks);
+    });
   
-    res.send(JSON.stringify(matchedBooks, null, 4));
+    myPromise.then((successMessage) => {
+      res.send(JSON.stringify(successMessage, null, 4));
+    });
 });
 
 // Get all books based on title
@@ -86,8 +92,6 @@ public_users.get('/title/:title',function (req, res) {
       res.send(JSON.stringify(successMessage, null, 4));
     });
 });
-
-
 
 //  Get book review
 public_users.get('/review/:isbn',function (req, res) {
